@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ImageFileRepository : JpaRepository<ImageFile, Long> {
 
+    fun existsByName(name: String): Boolean
+
 }
