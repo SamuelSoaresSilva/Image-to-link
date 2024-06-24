@@ -1,6 +1,5 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -11,15 +10,11 @@ import java.io.IOException
 
 @RestController
 @RequestMapping("/api/imageFile")
-private class ImageFileController {
+private class ImageFileController(
+    private val service: ImageFileService) {
 
     @PostMapping
     @Throws(IOException::class)
-    fun uploadImage(@RequestParam image: MultipartFile?): ResponseEntity<Any> {
-        if (image == null) {
-            return ResponseEntity(HttpStatus.BAD_REQUEST)
-        }
-        return ResponseEntity.ok().body(image.originalFilename)
-    }
+    fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<String>? = service.saveImage(image)
 
 }
