@@ -9,7 +9,6 @@ import java.io.File
 class ImageFileService(
     private val repository: ImageFileRepository,
 ) {
-
     fun saveImage(image: MultipartFile): ResponseEntity<String>?{
         when{
             image.isEmpty -> return ResponseEntity.badRequest().body("Error by receiving the image")
