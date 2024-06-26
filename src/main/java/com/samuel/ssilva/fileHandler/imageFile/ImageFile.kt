@@ -1,19 +1,18 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity(name = "IMAGE_FILE_TB")
 class ImageFile {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val id: Long? = null
+    private val id: Long? = null
 
     private val name: String? = null
     private val type: String? = null
 
-    private val filePath: String? = null
+    @Column(length = 5000000)
+    private val imgByte: ByteArray? = null
 
+    constructor()
 }
