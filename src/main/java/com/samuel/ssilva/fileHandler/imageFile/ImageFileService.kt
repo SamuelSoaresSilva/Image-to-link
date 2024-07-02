@@ -24,17 +24,6 @@ class ImageFileService(
         return if (imageFile == null) null else "File uploaded successfully: ${image.originalFilename};"
     }
 
-    private fun saveImage(image: MultipartFile): ResponseEntity<Any>?{
-        val fileName: String? = image.originalFilename
-        val path = "${System.getProperty("user.dir")}/src/main/resources/static/$fileName"
-        try {
-            image.transferTo(File(path))
-        }catch (e:Exception){
-            return ResponseEntity.badRequest().body(e.localizedMessage)
-        }
-        return ResponseEntity.ok().body("path: $path")
-    }
-
     fun saveValidatedImage(image: MultipartFile): ResponseEntity<Any>? {
         return when{
             image.isEmpty -> ResponseEntity.badRequest().body("Error by receiving the image")
@@ -47,5 +36,15 @@ class ImageFileService(
         }
     }
 
+    private fun saveImage(image: MultipartFile): ResponseEntity<Any>?{
+        val fileName: String? = image.originalFilename
+        val path = "${System.getProperty("user.dir")}/src/main/resources/static/$fileName"
+        try {
+            image.transferTo(File(path))
+        }catch (e:Exception){
+            return ResponseEntity.badRequest().body(e.localizedMessage)
+        }
+        return ResponseEntity.ok().body("path: $path")
+    }
 
 }
