@@ -17,8 +17,6 @@ private class ImageFileController(
     @PostMapping
     @Throws(IOException::class)
     fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? {
-        val imageUtils: ImageFileUtils = ImageFileUtils()
-        print(imageUtils.imageToBase64(image))
         return service.saveValidatedImage(image)
     }
 
