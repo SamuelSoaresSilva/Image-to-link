@@ -9,7 +9,7 @@ public class ImageUtils {
     public static byte[] compressImage(byte[] data) {
 
         Deflater deflater = new Deflater();
-        deflater.setLevel(Deflater.BEST_COMPRESSION);
+        deflater.setLevel(Deflater.FULL_FLUSH);
         deflater.setInput(data);
         deflater.finish();
 
@@ -19,11 +19,13 @@ public class ImageUtils {
             int size = deflater.deflate(tmp);
             outputStream.write(tmp, 0, size);
         }
+        byte[] compressedData = outputStream.toByteArray();
         try {
             outputStream.close();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return outputStream.toByteArray();
+        return compressedData;
     }
 
 
