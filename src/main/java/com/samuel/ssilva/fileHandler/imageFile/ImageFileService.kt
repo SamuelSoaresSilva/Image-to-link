@@ -1,6 +1,9 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 
+import com.samuel.ssilva.fileHandler.imageFile.ImageUtils.*
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -9,16 +12,14 @@ import java.io.File
 @Service
 class ImageFileService(
     private val repository: ImageFileRepository,
-
     ) {
 
     private fun saveImageInDataBase(image: MultipartFile): Any?{
-
         val imageFile: ImageFile = repository.save(
             ImageFile.Builder()
             .name(image.originalFilename)
             .type(image.contentType)
-            .imgByte(ImageUtils.compressImage(image.bytes))
+            .imgByte(compressImage(image.bytes))
             .build())
 
         return if (imageFile == null) null else "File uploaded successfully: ${image.originalFilename};"
