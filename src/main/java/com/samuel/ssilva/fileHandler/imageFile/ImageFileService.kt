@@ -48,4 +48,30 @@ class ImageFileService(
         return ResponseEntity.ok().body("path: $path")
     }
 
+    private fun returnImageFromDataBase(name:String): ByteArray{
+        val image: ImageFile? = repository.findByName(name)
+        val imageData: ByteArray = decompressImage(image?.imgByte)
+        return imageData
+    }
+
+    fun returnValidatedImage(name: String): ResponseEntity<Any>? {
+        return when {
+
+            (name.equals(null) || name.isBlank() || name.contains(" ")) ->
+                return ResponseEntity.badRequest()
+                .body("The file you are looking for must have a valid name")
+
+            name.let { !repository.existsByName(it) } ->
+                ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The file you are looking for doesn't exists")
+
+            else -> {
+                ResponseEntity.ok()
+                    .contentType(MediaType.valueOf("image/png"))
+                    .body(returnImageFromDataBase(name))
+            }
+
+        }
+    }
+
 }
