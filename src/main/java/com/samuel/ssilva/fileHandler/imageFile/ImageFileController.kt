@@ -1,10 +1,7 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
 
@@ -16,8 +13,10 @@ private class ImageFileController(
 
     @PostMapping
     @Throws(IOException::class)
-    fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? {
-        return service.saveValidatedImage(image)
-    }
+    fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? = service.saveValidatedImage(image)
+
+
+    @GetMapping("/{imageName}")
+    fun getImage(@PathVariable imageName: String): ResponseEntity<Any>? = service.returnValidatedImage(imageName)
 
 }
