@@ -4,15 +4,15 @@ import jakarta.persistence.*
 
 @Entity(name = "IMAGE_FILE_TB")
 data class ImageFile (
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) private val id: Long? = null,
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) val id: Long? = null,
 
-    private val name: String? = null,
-    private val type: String? = null,
+    val name: String? = null,
+    val type: String? = null,
 
-    @Column(length = 5000000) private val imgByte: ByteArray? = null,
+    @Column(length = 5000000) val imgByte: ByteArray? = null,
 
 
-){
+    ){
     class Builder {
         private var id: Long? = null
         private var name: String? = null
