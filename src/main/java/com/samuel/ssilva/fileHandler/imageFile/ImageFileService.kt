@@ -15,14 +15,14 @@ class ImageFileService(
     ) {
 
     private fun saveImageInDataBase(image: MultipartFile): Any?{
-        val imageFile: ImageFile = repository.save(
+        repository.save(
             ImageFile.Builder()
             .name(image.originalFilename)
             .type(image.contentType)
             .imgByte(compressImage(image.bytes))
             .build())
 
-        return if (imageFile == null) null else "File uploaded successfully: ${image.originalFilename};"
+        return "File uploaded successfully: ${image.originalFilename};"
     }
 
     fun saveValidatedImage(image: MultipartFile): ResponseEntity<Any>? {
