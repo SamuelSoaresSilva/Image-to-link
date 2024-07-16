@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile
 class ImageFileService(
     private val repository: ImageFileRepository
 ) {
-
+    // TODO: define a size limit for receiving images
     private fun saveImageInDataBase(image: MultipartFile): String{
         repository.save(
             ImageFile.Builder()
@@ -60,6 +60,12 @@ class ImageFileService(
             }
 
         }
+    }
+
+    fun returnImageInfo(name: String): ResponseEntity<ImageFileResponse>? {
+        val image: ImageFile? = repository.findByName(name)
+        val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type)
+        return ResponseEntity.ok().body(imageResponse)
     }
 
     fun removeImageFromDataBase(name: String): ResponseEntity<Any> {
