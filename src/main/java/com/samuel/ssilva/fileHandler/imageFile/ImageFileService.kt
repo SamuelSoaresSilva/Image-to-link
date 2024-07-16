@@ -61,7 +61,7 @@ class ImageFileService(
 
         }
     }
-
+    //TODO: make the return shows the image get url
     fun returnImageInfo(name: String): ResponseEntity<ImageFileResponse>? {
         val image: ImageFile? = repository.findByName(name)
         val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type)
