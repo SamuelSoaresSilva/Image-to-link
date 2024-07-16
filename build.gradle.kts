@@ -31,6 +31,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation ("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
+	testImplementation("com.h2database:h2:2.1.214")
 
 	runtimeOnly("org.postgresql:postgresql")
 	compileOnly("org.projectlombok:lombok")
