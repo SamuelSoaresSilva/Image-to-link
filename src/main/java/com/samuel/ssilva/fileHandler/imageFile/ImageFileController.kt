@@ -15,8 +15,12 @@ private class ImageFileController(
     @Throws(IOException::class)
     fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? = service.saveValidatedImage(image)
 
-
     @GetMapping("/{imageName}")
     fun getImage(@PathVariable imageName: String): ResponseEntity<Any>? = service.returnValidatedImage(imageName)
 
+    @GetMapping("/info/{imageName}")
+    fun getImageInfo(@PathVariable imageName: String): ResponseEntity<ImageFileResponse>? = service.returnImageInfo(imageName)
+
+    @DeleteMapping("/delete/{imageName}")
+    fun deleteImage(@PathVariable imageName: String): Any? = service.removeImageFromDataBase(imageName)
 }
