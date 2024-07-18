@@ -3,11 +3,14 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 COPY build.gradle.kts .
-COPY gradlew .
+COPY settings.gradle.kts .
+
+COPY gradlew ./
+COPY gradle ./gradle
+
+RUN chmod +x ./gradlew
 
 COPY src ./src
-
-RUN ./gradlew
 
 RUN ./gradlew build
 
