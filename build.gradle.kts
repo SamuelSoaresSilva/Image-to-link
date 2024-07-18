@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.samuel.ssilva"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 java {
 	toolchain {
@@ -31,7 +31,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation ("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
-	testImplementation("com.h2database:h2:2.1.214")
+	runtimeOnly("com.h2database:h2:2.3.230")
+
 
 	runtimeOnly("org.postgresql:postgresql")
 	compileOnly("org.projectlombok:lombok")
