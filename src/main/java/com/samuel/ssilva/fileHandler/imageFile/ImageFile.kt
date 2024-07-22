@@ -9,7 +9,8 @@ data class ImageFile (
     val name: String? = null,
     val type: String? = null,
 
-    @Column(length = 5000000) val imgByte: ByteArray? = null,
+    @Column(length = 5000000, name = "img_byte", columnDefinition = "bytea")
+    val imgByte: ByteArray? = null,
 
 
     ){
