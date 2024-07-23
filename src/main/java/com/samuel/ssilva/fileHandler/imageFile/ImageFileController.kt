@@ -22,6 +22,9 @@ private class ImageFileController(
     @GetMapping("/info/{imageName}")
     fun getImageInfo(@PathVariable imageName: String, request: HttpServletRequest): ResponseEntity<Any>? = service.returnImageInfo(imageName, request)
 
+    @GetMapping
+    fun getAllImages(): ResponseEntity<Any>? = service.returnAllImages()
+
     @DeleteMapping("/delete/{imageName}")
     fun deleteImage(@PathVariable imageName: String): Any? = service.removeImageFromDataBase(imageName)
 }
