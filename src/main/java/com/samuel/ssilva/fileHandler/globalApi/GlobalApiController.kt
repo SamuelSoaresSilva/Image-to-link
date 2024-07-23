@@ -16,7 +16,7 @@ class GlobalApiController {
         val html: String =
                 "<body style=\"padding: 0; margin: 0;\">\n" +
                 "    <div style=\"width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;\">\n" +
-                "        <H2>Service is running</H1>\n" +
+                "        <H1>Service is running</H1>\n" +
                 "        <img src=\"${gifUrl}\" alt=\"Running\">\n" +
                 "    </div>\n" +
                 "</body>"
