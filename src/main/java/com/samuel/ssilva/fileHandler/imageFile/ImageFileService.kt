@@ -84,7 +84,7 @@ class ImageFileService(
     }
 
     fun returnAllImages(): ResponseEntity<Any>? {
-        val imageList: List<ImageFile?> = repository.findAllByOrderByIdAsc()
+        val imageList: List<ImageFileSimpleResponse?> = repository.findAllImages()
         return if (imageList.isEmpty()) ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no images") else ResponseEntity.ok().body(imageList)
     }
 
