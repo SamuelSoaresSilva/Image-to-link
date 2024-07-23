@@ -56,6 +56,7 @@ data class ImageFile (
 
 class ImageFileResponse(val id: Long? = null,
                         val name: String? = null,
-                        val type: String? = null)
+                        val type: String? = null,
+                        val url: String? = null,)
 
 
