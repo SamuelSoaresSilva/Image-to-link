@@ -9,6 +9,7 @@ data class ImageFile (
     val name: String? = null,
     val type: String? = null,
 
+    @Lob
     @Column(length = 5000000, name = "img_byte", columnDefinition = "bytea")
     val imgByte: ByteArray? = null,
 
@@ -59,4 +60,8 @@ class ImageFileResponse(val id: Long? = null,
                         val type: String? = null,
                         val url: String? = null,)
 
-
+data class ImageFileSimpleResponse(
+    val id: Long,
+    val name: String,
+    val type: String
+)
