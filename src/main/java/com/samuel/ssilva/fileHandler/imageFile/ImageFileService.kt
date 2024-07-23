@@ -2,6 +2,7 @@ package com.samuel.ssilva.fileHandler.imageFile
 
 
 import com.samuel.ssilva.fileHandler.imageFile.ImageUtils.*
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -61,11 +62,15 @@ class ImageFileService(
 
         }
     }
-    //TODO: make the return shows the image get url
-    fun returnImageInfo(name: String): ResponseEntity<ImageFileResponse>? {
+    fun returnImageInfo(name: String, request: HttpServletRequest): ResponseEntity<Any>? {
         val image: ImageFile? = repository.findByName(name)
-        val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type)
-        return ResponseEntity.ok().body(imageResponse)
+        if (image == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The file you are looking for doesn't exists")
+        } else {
+            val imageUrl = request.requestURL.toString().replace("/info", "")
+            val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type, imageUrl)
+            return ResponseEntity.ok().body(imageResponse)
+        }
     }
 
     fun removeImageFromDataBase(name: String): ResponseEntity<Any> {
