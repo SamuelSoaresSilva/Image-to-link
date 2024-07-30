@@ -46,4 +46,8 @@ public class ImageUtils {
         return outputStream.toByteArray();
     }
 
+    public static double bytesToMegabytes(long bytes) {
+        final int BYTES_IN_MEBIBYTE = 1024 * 1024;
+        return bytes / (double) BYTES_IN_MEBIBYTE;
+    }
 }
