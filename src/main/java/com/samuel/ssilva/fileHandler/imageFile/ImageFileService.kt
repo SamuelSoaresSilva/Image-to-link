@@ -16,11 +16,13 @@ class ImageFileService(
     // TODO: define a size limit for receiving images
     private fun saveImageInDataBase(image: MultipartFile): String{
         repository.save(
-            ImageFile.Builder()
-            .name(image.originalFilename)
-            .type(image.contentType)
-            .imgByte(compressImage(image.bytes))
-            .build())
+            ImageFile(
+                name = image.originalFilename,
+                type = image.contentType,
+                imgByte = compressImage(image.bytes),
+                megabytes = bytesToMegabytes(image.size)
+                )
+            )
 
         return "File uploaded successfully: ${image.originalFilename};"
     }
