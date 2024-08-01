@@ -11,6 +11,6 @@ interface ImageFileRepository : JpaRepository<ImageFile, Long> {
     fun findByName(name: String): ImageFile?
 
     //TODO: IMPLEMENTS GET MEGABYTES
-    @Query("SELECT new com.samuel.ssilva.fileHandler.imageFile.ImageFileSimpleResponse(i.id, i.name, i.type) FROM IMAGE_FILE_TB i")
+    @Query("SELECT new com.samuel.ssilva.fileHandler.imageFile.ImageFileSimpleResponse(i.id, i.name, i.type, i.megabytes) FROM IMAGE_FILE_TB i")
     fun findAllImages(): List<ImageFileSimpleResponse>
 }

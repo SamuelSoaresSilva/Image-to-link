@@ -15,10 +15,11 @@ class ImageFileService(
 ) {
     // TODO: define a size limit for receiving images
     private fun saveImageInDataBase(image: MultipartFile): String{
+        val imageName = image.originalFilename
         repository.save(
             ImageFile(
-                name = image.originalFilename,
-                type = image.contentType,
+                name = imageName,
+                type = getFileExtension(imageName),
                 imgByte = compressImage(image.bytes),
                 megabytes = bytesToMegabytes(image.size)
                 )
@@ -70,7 +71,7 @@ class ImageFileService(
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The file you are looking for doesn't exists")
         } else {
             val imageUrl = request.requestURL.toString().replace("/info", "")
-            val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type, imageUrl)
+            val imageResponse = ImageFileResponse(image?.id, image?.name, image?.type, image?.megabytes, imageUrl)
             return ResponseEntity.ok().body(imageResponse)
         }
     }

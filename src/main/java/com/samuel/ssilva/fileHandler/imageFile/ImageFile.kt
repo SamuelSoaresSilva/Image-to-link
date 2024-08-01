@@ -48,6 +48,7 @@ data class ImageFile(
 class ImageFileResponse(val id: Long? = null,
                         val name: String? = null,
                         val type: String? = null,
+                        val megabytes: Double? = null,
                         val url: String? = null,)
 
 
@@ -56,5 +57,5 @@ data class ImageFileSimpleResponse(
     val id: Long,
     val name: String,
     val type: String,
-//    val megabytes: Double,
+    val megabytes: Double,
 )

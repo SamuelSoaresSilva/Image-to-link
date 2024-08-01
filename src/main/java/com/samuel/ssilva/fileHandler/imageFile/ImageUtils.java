@@ -1,5 +1,6 @@
 package com.samuel.ssilva.fileHandler.imageFile;
 
+
 import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -49,5 +50,9 @@ public class ImageUtils {
     public static double bytesToMegabytes(long bytes) {
         final int BYTES_IN_MEBIBYTE = 1024 * 1024;
         return bytes / (double) BYTES_IN_MEBIBYTE;
+    }
+
+    public static String getFileExtension(String filename){
+        return filename.substring(filename.lastIndexOf('.') + 1);
     }
 }
