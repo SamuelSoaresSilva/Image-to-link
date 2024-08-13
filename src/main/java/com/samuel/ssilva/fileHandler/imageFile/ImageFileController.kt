@@ -1,6 +1,7 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -12,7 +13,7 @@ private class ImageFileController(
     private val service: ImageFileService,
     ) {
 
-    @PostMapping
+    @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @Throws(IOException::class)
     fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? = service.saveValidatedImage(image)
 
