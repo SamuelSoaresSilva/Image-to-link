@@ -2,7 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
-    kotlin("jvm")
+	kotlin("jvm")
 }
 
 group = "com.samuel.ssilva"
@@ -31,8 +31,11 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation ("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
-	implementation("org.springdoc:springdoc-openapi-ui:1.8.0")
 	runtimeOnly("com.h2database:h2:2.3.230")
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
+
 
 
 	runtimeOnly("org.postgresql:postgresql")
@@ -40,7 +43,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation(kotlin("stdlib"))
+	implementation(kotlin("stdlib"))
 }
 
 dependencyManagement {
