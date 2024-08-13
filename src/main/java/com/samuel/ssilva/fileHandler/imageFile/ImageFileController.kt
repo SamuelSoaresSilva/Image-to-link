@@ -13,8 +13,6 @@ private class ImageFileController(
     private val service: ImageFileService,
     ) {
 
-    //URL: http://localhost:8080/swagger-ui/index.html#/
-
     @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @Throws(IOException::class)
     fun uploadImage(@RequestParam image: MultipartFile): ResponseEntity<Any>? = service.saveValidatedImage(image)

@@ -32,7 +32,6 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation ("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
 	runtimeOnly("com.h2database:h2:2.3.230")
-	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
 
