@@ -1,11 +1,9 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 
-import com.samuel.ssilva.fileHandler.error.ImageNotFoundException
 import com.samuel.ssilva.fileHandler.imageFile.ImageUtils.*
 import com.samuel.ssilva.fileHandler.utils.NameValidator
 import jakarta.servlet.http.HttpServletRequest
-import org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -28,18 +26,19 @@ class ImageFileService(
                 megabytes = bytesToMegabytes(image.size)
                 )
             )
-
-        return "File uploaded successfully: ${image.originalFilename};"
+        return imageName!!
     }
 
-    fun saveValidatedImage(image: MultipartFile): ResponseEntity<Any>? {
+    fun saveValidatedImage(image: MultipartFile): ResponseEntity<out Any> {
+        validator.validateName(image.originalFilename)?.let{
+            return it
+        }
         return when{
             image.isEmpty -> ResponseEntity.badRequest().body("Error by receiving the image")
-            image.originalFilename?.contains(" ") == true -> ResponseEntity.badRequest().body("File name can not have spaces")
             image.originalFilename?.let { repository.existsByName(it) } == true -> ResponseEntity.badRequest().body("A file with this name already exists")
             else -> {
                 val uploadImage = saveImageInDataBase(image)
-            if (uploadImage == null) ResponseEntity.badRequest().body("Error by receiving the image") else ResponseEntity.ok().body(uploadImage)
+                ResponseEntity.ok().body(ImageNameResponse(uploadImage, "saved"))
             }
         }
     }
@@ -50,23 +49,20 @@ class ImageFileService(
         return imageData
     }
 
-    fun returnValidatedImage(name: String): ResponseEntity<Any>? {
+    fun returnValidatedImage(name: String): ResponseEntity<out Any> {
+        validator.validateName(name)?.let{
+            return it
+        }
         return when {
-
-            (name.equals(null) || name.isBlank() || name.contains(" ")) ->
-                return ResponseEntity.badRequest()
-                .body("The file you are looking for must have a valid name")
-
             name.let { !repository.existsByName(it) } ->
                 ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The file you are looking for doesn't exists")
+                    .body(ImageNameResponse(name, "not found"))
 
             else -> {
                 ResponseEntity.ok()
                     .contentType(MediaType.valueOf("image/png"))
                     .body(returnImageFromDataBase(name))
             }
-
         }
     }
     fun returnImageInfo(name: String, request: HttpServletRequest): ResponseEntity<Any>? {

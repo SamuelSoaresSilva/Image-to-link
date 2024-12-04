@@ -60,4 +60,4 @@ data class ImageFileSimpleResponse(
     val megabytes: Double,
 )
 
-data class DeleteImageView(val name: String, val status: String)
+data class ImageNameResponse(val name: String?, val status: String)
