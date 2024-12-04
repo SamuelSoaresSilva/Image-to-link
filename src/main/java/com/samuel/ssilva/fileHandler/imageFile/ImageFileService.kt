@@ -80,10 +80,10 @@ class ImageFileService(
         }
     }
 
-    fun deleteImage(name: String): ResponseEntity<DeleteImageView> {
+    fun deleteImage(name: String): ResponseEntity<ImageNameResponse> {
         val image: Int = repository.deleteByName(name)
-        return if (image == 0) ResponseEntity.status(HttpStatus.NOT_FOUND).body(DeleteImageView(name, "not found"))
-        else ResponseEntity.status(HttpStatus.OK).body(DeleteImageView(name, "deleted"))
+        return if (image == 0) ResponseEntity.status(HttpStatus.NOT_FOUND).body(ImageNameResponse(name, "not found"))
+        else ResponseEntity.status(HttpStatus.OK).body(ImageNameResponse(name, "deleted"))
     }
 
     fun returnAllImages(): ResponseEntity<Any>? {
