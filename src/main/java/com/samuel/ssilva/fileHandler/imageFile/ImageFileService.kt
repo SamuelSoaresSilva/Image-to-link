@@ -3,6 +3,7 @@ package com.samuel.ssilva.fileHandler.imageFile
 
 import com.samuel.ssilva.fileHandler.error.ImageNotFoundException
 import com.samuel.ssilva.fileHandler.imageFile.ImageUtils.*
+import com.samuel.ssilva.fileHandler.utils.NameValidator
 import jakarta.servlet.http.HttpServletRequest
 import org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.springframework.http.HttpStatus
