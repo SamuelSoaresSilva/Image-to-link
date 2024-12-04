@@ -1,6 +1,7 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
@@ -12,4 +13,6 @@ interface ImageFileRepository : JpaRepository<ImageFile, Long> {
 
     @Query("SELECT new com.samuel.ssilva.fileHandler.imageFile.ImageFileSimpleResponse(i.id, i.name, i.type, i.megabytes) FROM IMAGE_FILE_TB i")
     fun findAllImages(): List<ImageFileSimpleResponse>
+
+    fun deleteByName(name: String): Int
 }

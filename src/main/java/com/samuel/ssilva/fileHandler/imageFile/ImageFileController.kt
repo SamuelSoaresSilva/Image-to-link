@@ -1,6 +1,7 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.Valid
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -27,5 +28,5 @@ private class ImageFileController(
     fun getAllImages(): ResponseEntity<Any>? = service.returnAllImages()
 
     @DeleteMapping("/delete/{imageName}")
-    fun deleteImage(@PathVariable imageName: String): Any? = service.removeImageFromDataBase(imageName)
+    fun deleteImage(@PathVariable imageName: String): ResponseEntity<DeleteImageView> = service.deleteImage(imageName)
 }

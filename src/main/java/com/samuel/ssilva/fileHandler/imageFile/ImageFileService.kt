@@ -1,8 +1,10 @@
 package com.samuel.ssilva.fileHandler.imageFile
 
 
+import com.samuel.ssilva.fileHandler.error.ImageNotFoundException
 import com.samuel.ssilva.fileHandler.imageFile.ImageUtils.*
 import jakarta.servlet.http.HttpServletRequest
+import org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -76,19 +78,16 @@ class ImageFileService(
         }
     }
 
-    fun removeImageFromDataBase(name: String): ResponseEntity<Any> {
-        val image: ImageFile? = repository.findByName(name)
-        if (image == null) {
-            return ResponseEntity.status(404).body("The file doesn't exists")
-        }else{
-            repository.deleteById(image.id)
-            return ResponseEntity.ok().body("The image ${image.name} with id ${image.id} was deleted")
-        }
+    fun deleteImage(name: String): ResponseEntity<DeleteImageView> {
+        val image: Int = repository.deleteByName(name)
+        return if (image == 0) ResponseEntity.status(HttpStatus.NOT_FOUND).body(DeleteImageView(name, "not found"))
+        else ResponseEntity.status(HttpStatus.OK).body(DeleteImageView(name, "deleted"))
     }
 
     fun returnAllImages(): ResponseEntity<Any>? {
         val imageList: List<ImageFileSimpleResponse?> = repository.findAllImages()
         return if (imageList.isEmpty()) ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no images") else ResponseEntity.ok().body(imageList)
     }
+
 
 }
