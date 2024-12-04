@@ -13,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile
 
 @Service
 class ImageFileService(
-    private val repository: ImageFileRepository
+    private val repository: ImageFileRepository,
+    private val validator: NameValidator
 ) {
     // TODO: define a size limit for receiving images
     private fun saveImageInDataBase(image: MultipartFile): String{
